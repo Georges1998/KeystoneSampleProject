@@ -8,6 +8,7 @@ import {
 } from '@keystone-next/keystone/session';
 
 import { User } from './schemas/User';
+import { Restaurant } from './schemas/Restaurant';
 
 const databaseURL = process.env.DATABASE_URL;
 
@@ -42,18 +43,16 @@ export default withAuth(
     lists: createSchema({
       // Schema goes here :D
       User,
+      Restaurant,
     }),
 
     ui: {
       // show the ui only for people who are logged in
-      isAccessAllowed: ({ session }) => {
-        console.log('session', session);
-        return !!session;
-      },
+      isAccessAllowed: ({ session }) => !!session,
     },
     session: withItemData(statelessSessions(sessionConfig), {
       // what data to store in the session
-      User: `id username`,
+      User: 'id username',
     }),
   })
 );

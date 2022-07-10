@@ -24,6 +24,9 @@ export default function Home() {
           User: _allUsersMeta {
             count
           }
+          Restaurant: _allRestaurantsMeta {
+            count
+          }
         }
       `}
     />

@@ -123,6 +123,162 @@ input UsersCreateInput {
   data: UserCreateInput
 }
 
+""" A keystone list """
+type Restaurant {
+  id: ID!
+  name: String
+  createdBy: String
+  location: String
+  createdAt: String
+  updatedAt: String
+  desc: String
+}
+
+input RestaurantWhereInput {
+  AND: [RestaurantWhereInput]
+  OR: [RestaurantWhereInput]
+  id: ID
+  id_not: ID
+  id_in: [ID]
+  id_not_in: [ID]
+  name: String
+  name_not: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_i: String
+  name_not_i: String
+  name_contains_i: String
+  name_not_contains_i: String
+  name_starts_with_i: String
+  name_not_starts_with_i: String
+  name_ends_with_i: String
+  name_not_ends_with_i: String
+  name_in: [String]
+  name_not_in: [String]
+  createdBy: String
+  createdBy_not: String
+  createdBy_contains: String
+  createdBy_not_contains: String
+  createdBy_starts_with: String
+  createdBy_not_starts_with: String
+  createdBy_ends_with: String
+  createdBy_not_ends_with: String
+  createdBy_i: String
+  createdBy_not_i: String
+  createdBy_contains_i: String
+  createdBy_not_contains_i: String
+  createdBy_starts_with_i: String
+  createdBy_not_starts_with_i: String
+  createdBy_ends_with_i: String
+  createdBy_not_ends_with_i: String
+  createdBy_in: [String]
+  createdBy_not_in: [String]
+  location: String
+  location_not: String
+  location_contains: String
+  location_not_contains: String
+  location_starts_with: String
+  location_not_starts_with: String
+  location_ends_with: String
+  location_not_ends_with: String
+  location_i: String
+  location_not_i: String
+  location_contains_i: String
+  location_not_contains_i: String
+  location_starts_with_i: String
+  location_not_starts_with_i: String
+  location_ends_with_i: String
+  location_not_ends_with_i: String
+  location_in: [String]
+  location_not_in: [String]
+  createdAt: String
+  createdAt_not: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdAt_in: [String]
+  createdAt_not_in: [String]
+  updatedAt: String
+  updatedAt_not: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedAt_in: [String]
+  updatedAt_not_in: [String]
+  desc: String
+  desc_not: String
+  desc_contains: String
+  desc_not_contains: String
+  desc_starts_with: String
+  desc_not_starts_with: String
+  desc_ends_with: String
+  desc_not_ends_with: String
+  desc_i: String
+  desc_not_i: String
+  desc_contains_i: String
+  desc_not_contains_i: String
+  desc_starts_with_i: String
+  desc_not_starts_with_i: String
+  desc_ends_with_i: String
+  desc_not_ends_with_i: String
+  desc_in: [String]
+  desc_not_in: [String]
+}
+
+input RestaurantWhereUniqueInput {
+  id: ID!
+}
+
+enum SortRestaurantsBy {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  createdBy_ASC
+  createdBy_DESC
+  location_ASC
+  location_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  desc_ASC
+  desc_DESC
+}
+
+input RestaurantUpdateInput {
+  name: String
+  createdBy: String
+  location: String
+  createdAt: String
+  updatedAt: String
+  desc: String
+}
+
+input RestaurantsUpdateInput {
+  id: ID!
+  data: RestaurantUpdateInput
+}
+
+input RestaurantCreateInput {
+  name: String
+  createdBy: String
+  location: String
+  createdAt: String
+  updatedAt: String
+  desc: String
+}
+
+input RestaurantsCreateInput {
+  data: RestaurantCreateInput
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -316,6 +472,19 @@ type Query {
   """ Retrieve the meta-data for the User list. """
   _UsersMeta: _ListMeta
 
+  """ Search for all Restaurant items which match the where clause. """
+  allRestaurants(where: RestaurantWhereInput, search: String, sortBy: [SortRestaurantsBy!], orderBy: String, first: Int, skip: Int): [Restaurant]
+
+  """ Search for the Restaurant item with the matching ID. """
+  Restaurant(where: RestaurantWhereUniqueInput!): Restaurant
+
+  """ Perform a meta-query on all Restaurant items which match the where clause. 
+  """
+  _allRestaurantsMeta(where: RestaurantWhereInput, search: String, sortBy: [SortRestaurantsBy!], orderBy: String, first: Int, skip: Int): _QueryMeta
+
+  """ Retrieve the meta-data for the Restaurant list. """
+  _RestaurantsMeta: _ListMeta
+
   """ Retrieve the meta-data for all lists. """
   _ksListsMeta(where: _ksListsMetaInput): [_ListMeta]
 
@@ -343,6 +512,24 @@ type Mutation {
 
   """ Delete multiple User items by ID. """
   deleteUsers(ids: [ID!]): [User]
+
+  """ Create a single Restaurant item. """
+  createRestaurant(data: RestaurantCreateInput): Restaurant
+
+  """ Create multiple Restaurant items. """
+  createRestaurants(data: [RestaurantsCreateInput]): [Restaurant]
+
+  """ Update a single Restaurant item by ID. """
+  updateRestaurant(id: ID!, data: RestaurantUpdateInput): Restaurant
+
+  """ Update multiple Restaurant items by ID. """
+  updateRestaurants(data: [RestaurantsUpdateInput]): [Restaurant]
+
+  """ Delete a single Restaurant item by ID. """
+  deleteRestaurant(id: ID!): Restaurant
+
+  """ Delete multiple Restaurant items by ID. """
+  deleteRestaurants(ids: [ID!]): [Restaurant]
   authenticateUserWithPassword(username: String!, password: String!): UserAuthenticationWithPasswordResult!
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
   endSession: Boolean!
